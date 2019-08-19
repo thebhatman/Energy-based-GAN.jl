@@ -74,9 +74,9 @@ opt_gen = ADAM()
 
 function training(X)
 	disc_grad = Flux.Tracker.gradient(()->disc_loss(X), params(discriminator))
-	gen_grad = Flux.Tracker.gradient(()->generator_loss(X), params(generator))
-
 	update!(opt_disc, params(discriminator), disc_grad)
+
+	gen_grad = Flux.Tracker.gradient(()->generator_loss(X), params(generator))
 	update!(opt_gen, params(generator), gen_grad)
 
 	return disc_loss(X), generator_loss(X)
